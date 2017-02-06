@@ -2,39 +2,15 @@ import React, {Component} from "react";
 import {View, Text, StyleSheet, ListView, Image} from "react-native";
 import {observer} from "mobx-react/native";
 import Swiper from "react-native-swiper";
-import autobind from "autobind-decorator";
+import Button from "react-native-button";
 
 @observer
-export default class PageOne extends Component {
-
-    constructor(props) {
-        super(props);
-        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        this.state = {
-            dataSource: ds.cloneWithRows([
-                'John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin'
-            ])
-        };
-    }
-
-    @autobind
-    renderRow(row) {
-        return (
-            <View style={styles.rowStyles}>
-                <View>
-                    <Image source={require('../imgs/100x100.png')}/>
-                </View>
-                <View>
-                    <Text>{row}</Text>
-                </View>
-            </View>
-        );
-    }
+export default class ChannelDetail extends Component {
 
     render() {
         const store = this.props.store;
         return <View style={styles.container}>
-            <Swiper style={styles.wrapper} height={200}>
+            <Swiper style={styles.wrapper} height={150} showsPagination={false}>
                 <View style={styles.slide1}>
                     <Text style={styles.text}>Hello Swiper</Text>
                 </View>
@@ -46,23 +22,15 @@ export default class PageOne extends Component {
                 </View>
             </Swiper>
 
-            {/*<View style={{flex:1}}>*/}
-            {/*<Text style={styles.welcome}>*/}
-            {/*Welcome to React Native Reactive!*/}
-            {/*</Text>*/}
-            {/*<Text>Counter: {store.counter}</Text>*/}
-            {/*<Text>Total clicks: {store.total}</Text>*/}
-            {/*<Button onPress={store.increase}>+</Button>*/}
-            {/*<Button onPress={store.decrease}>-</Button>*/}
-            {/*<Button onPress={Actions.pageTwo_1}>go to page2</Button>*/}
-            {/*<Button onPress={()=>Actions.error("Error message")}>modal</Button>*/}
-            {/*</View>*/}
-
-            <View style={{flex:1,paddingBottom:48}}>
-                <ListView
-                    dataSource={this.state.dataSource}
-                    renderRow={this.renderRow}
-                />
+            <View style={{flex:1}}>
+                <Text style={styles.welcome}>
+                    Welcome to React Native Reactive!
+                </Text>
+                <Text>Counter: {store.counter}</Text>
+                <Text>Total clicks: {store.total}</Text>
+                <Button onPress={store.increase}>+</Button>
+                <Button onPress={store.decrease}>-</Button>
+                <Button onPress={()=>Actions.error("Error message")}>modal</Button>
             </View>
 
         </View>;
@@ -72,6 +40,7 @@ export default class PageOne extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        paddingTop:64,
         // justifyContent: 'center',
         // alignItems: 'center',
         backgroundColor: '#F5FCFF',
