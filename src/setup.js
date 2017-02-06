@@ -47,9 +47,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     tabBarStyle: {
-        backgroundColor: '#eee',
+        backgroundColor: 'white',
     },
     tabBarSelectedItemStyle: {
-        backgroundColor: '#ddd',
+        backgroundColor: '#dbc8a8',
     },
 });
