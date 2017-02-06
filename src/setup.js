@@ -1,11 +1,10 @@
 import React, {Component} from "react";
 import {AppRegistry, StyleSheet, Text, View} from "react-native";
 import {Router, Scene, Modal} from "react-native-router-flux";
-import PageTwo from "./PageTwo";
 import CounterStore from "./store/CounterStore";
 import {observer} from "mobx-react/native";
 import {TabIcon, Error} from "./components";
-import {Home,ChannelDetail} from "./pages";
+import {Home, ChannelDetail, Categories, OrderList} from "./pages";
 
 const store = new CounterStore();
 
@@ -24,8 +23,10 @@ export default class Setup extends Component {
                                 <Scene key="Home" component={Home} title="首页" initial={true}/>
                             </Scene>
                             <Scene key="tab2" title="商品" icon={TabIcon}>
+                                <Scene key="Categories" component={Categories} title="商品" hideNavBar/>
                             </Scene>
                             <Scene key="tab3" title="订单" icon={TabIcon}>
+                                <Scene key="OrderList" component={OrderList} title="订单" hideTabBar/>
                             </Scene>
                         </Scene>
 
