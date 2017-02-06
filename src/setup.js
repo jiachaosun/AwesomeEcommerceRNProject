@@ -22,11 +22,11 @@ export default class Setup extends Component {
                             <Scene key="tab1" title="首页" icon={TabIcon} hideNavBar>
                                 <Scene key="Home" component={Home} title="首页" initial={true}/>
                             </Scene>
-                            <Scene key="tab2" title="商品" icon={TabIcon}>
-                                <Scene key="Categories" component={Categories} title="商品" hideNavBar/>
+                            <Scene key="tab2" title="分类" icon={TabIcon}>
+                                <Scene key="Categories" component={Categories} title="分类" hideNavBar/>
                             </Scene>
-                            <Scene key="tab3" title="订单" icon={TabIcon}>
-                                <Scene key="OrderList" component={OrderList} title="订单" hideTabBar/>
+                            <Scene key="tab3" title="我的" icon={TabIcon}>
+                                <Scene key="OrderList" component={OrderList} title="我的" hideNavBar/>
                             </Scene>
                         </Scene>
 

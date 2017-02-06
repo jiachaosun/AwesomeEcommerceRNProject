@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, StyleSheet, ListView, Image, TouchableOpacity} from "react-native";
+import {View, Text, StyleSheet, ListView, Image, TouchableOpacity, PixelRatio} from "react-native";
 import {observer} from "mobx-react/native";
 import Swiper from "react-native-swiper";
 import autobind from "autobind-decorator";
@@ -23,10 +23,13 @@ export default class Home extends Component {
         return (
             <TouchableOpacity style={styles.rowStyles} onPress={Actions.ChannelDetail}>
                 <View>
-                    <Image source={require('../../../imgs/100x100.png')}/>
+                    <Image style={{height:100,width:100}}
+                           source={require('../../../imgs/hot-caramel-macchiato-20151022185811.jpg')}/>
                 </View>
-                <View>
-                    <Text>{row}</Text>
+                <View style={{flex:1,marginLeft:15,paddingTop:10,marginRight:15}}>
+                    <Text style={{fontSize:16,color:"#666"}}>{"Chocolate Muffin"}</Text>
+                    <Text
+                        style={{fontSize:12,color:"#919191"}}>{"A rich chocolate muffin with a creamy caramel center.  Muffin"}</Text>
                 </View>
             </TouchableOpacity>
         );
@@ -37,27 +40,10 @@ export default class Home extends Component {
         return <View style={styles.container}>
             <Swiper style={styles.wrapper} height={200}>
                 <View style={styles.slide1}>
-                    <Text style={styles.text}>Hello Swiper</Text>
-                </View>
-                <View style={styles.slide2}>
-                    <Text style={styles.text}>Beautiful</Text>
-                </View>
-                <View style={styles.slide3}>
-                    <Text style={styles.text}>And simple</Text>
+                    <Image resizeMode='stretch' style={styles.image}
+                           source={require('../../../imgs/kv-mobile-cn-20161221183518.jpg')}/>
                 </View>
             </Swiper>
-
-            {/*<View style={{flex:1}}>*/}
-            {/*<Text style={styles.welcome}>*/}
-            {/*Welcome to React Native Reactive!*/}
-            {/*</Text>*/}
-            {/*<Text>Counter: {store.counter}</Text>*/}
-            {/*<Text>Total clicks: {store.total}</Text>*/}
-            {/*<Button onPress={store.increase}>+</Button>*/}
-            {/*<Button onPress={store.decrease}>-</Button>*/}
-            {/*<Button onPress={Actions.pageTwo_1}>go to page2</Button>*/}
-            {/*<Button onPress={()=>Actions.error("Error message")}>modal</Button>*/}
-            {/*</View>*/}
 
             <View style={{flex:1,paddingBottom:48}}>
                 <ListView
@@ -73,9 +59,6 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        backgroundColor: '#F5FCFF',
     },
     welcome: {
         fontSize: 20,
@@ -87,7 +70,7 @@ const styles = StyleSheet.create({
         color: '#333333',
         marginBottom: 5,
     },
-    wrapper: {},
+    image: {},
     slide1: {
         flex: 1,
         justifyContent: 'center',
@@ -112,6 +95,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     rowStyles: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        paddingTop: 10,
+        marginLeft: 15,
+        marginRight: 15,
+        paddingBottom: 10,
+        borderBottomWidth: 1 / PixelRatio.get(),
+        borderBottomColor: '#666666'
     }
 });
