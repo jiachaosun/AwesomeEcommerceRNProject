@@ -17,7 +17,7 @@ export default class PageOne extends Component {
             <Text>Total clicks: {store.total}</Text>
             <Button onPress={store.increase}>+</Button>
             <Button onPress={store.decrease}>-</Button>
-            <Button onPress={Actions.pageTwo}>go to page2</Button>
+            <Button onPress={Actions.pageTwo_1}>go to page2</Button>
         </View>;
     }
 }
