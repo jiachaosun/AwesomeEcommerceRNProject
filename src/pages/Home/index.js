@@ -36,6 +36,7 @@ export default class Home extends Component {
     }
 
     render() {
+        // console.log(JSON.parse(JSON.stringify(process.env)).NODE_ENV)
         const store = this.props.store;
         return <View style={styles.container}>
             <Swiper style={styles.wrapper} height={200}>
