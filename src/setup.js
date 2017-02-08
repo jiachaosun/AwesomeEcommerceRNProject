@@ -21,9 +21,9 @@ export default class Setup extends Component {
                                tabBarStyle={styles.tabBarStyle}
                                tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
                             <Scene key="tab1" title="首页" icon={TabIcon} hideNavBar>
-                                <Scene key="Home" component={Home} title="首页" initial={true}/>
+                                <Scene key="Home" component={Home} title="首页"/>
                             </Scene>
-                            <Scene key="tab2" title="分类" icon={TabIcon}>
+                            <Scene key="tab2" title="分类" icon={TabIcon} initial={true}>
                                 <Scene key="Categories" component={Categories} title="分类" hideNavBar/>
                             </Scene>
                             <Scene key="tab3" title="我的" icon={TabIcon}>

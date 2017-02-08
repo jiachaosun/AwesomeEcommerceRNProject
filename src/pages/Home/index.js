@@ -3,8 +3,7 @@ import {View, Text, StyleSheet, ListView, Image, TouchableOpacity, PixelRatio} f
 import {observer} from "mobx-react/native";
 import Swiper from "react-native-swiper";
 import autobind from "autobind-decorator";
-
-//import {Actions} from "react-native-router-flux";
+import {Actions} from "react-native-router-flux";
 
 @observer
 export default class Home extends Component {
@@ -20,8 +19,8 @@ export default class Home extends Component {
     @autobind
     clickTitle(row) {
         const {channelStore} = this.props;
-        row.title = 222
-        // channelStore.toggleTitle(row.id)
+        // row.title = 222
+        Actions.ChannelDetail()
     }
 
     @autobind

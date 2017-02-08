@@ -8,7 +8,6 @@ import Button from "react-native-button";
 export default class ChannelDetail extends Component {
 
     render() {
-        const store = this.props.store;
         return <View style={styles.container}>
             <Swiper style={styles.wrapper} height={150} showsPagination={false}>
                 <View style={styles.slide1}>
@@ -26,11 +25,6 @@ export default class ChannelDetail extends Component {
                 <Text style={styles.welcome}>
                     Welcome to React Native Reactive!
                 </Text>
-                <Text>Counter: {store.counter}</Text>
-                <Text>Total clicks: {store.total}</Text>
-                <Button onPress={store.increase}>+</Button>
-                <Button onPress={store.decrease}>-</Button>
-                <Button onPress={()=>Actions.error("Error message")}>modal</Button>
             </View>
 
         </View>;
@@ -41,8 +35,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop:64,
-        // justifyContent: 'center',
-        // alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },
     welcome: {
@@ -55,7 +47,6 @@ const styles = StyleSheet.create({
         color: '#333333',
         marginBottom: 5,
     },
-    wrapper: {},
     slide1: {
         flex: 1,
         justifyContent: 'center',
