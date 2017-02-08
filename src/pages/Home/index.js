@@ -3,41 +3,48 @@ import {View, Text, StyleSheet, ListView, Image, TouchableOpacity, PixelRatio} f
 import {observer} from "mobx-react/native";
 import Swiper from "react-native-swiper";
 import autobind from "autobind-decorator";
-import {Actions} from "react-native-router-flux";
+
+//import {Actions} from "react-native-router-flux";
 
 @observer
 export default class Home extends Component {
 
     constructor(props) {
         super(props);
-        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        this.state = {
-            dataSource: ds.cloneWithRows([
-                'John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin'
-            ])
-        };
+    }
+
+    componentDidMount() {
+        this.fetchMoreChannels();
+    }
+
+    @autobind
+    clickTitle(row) {
+        const {channelStore} = this.props;
+        row.title = 222
+        // channelStore.toggleTitle(row.id)
     }
 
     @autobind
     renderRow(row) {
-        return (
-            <TouchableOpacity style={styles.rowStyles} onPress={Actions.ChannelDetail}>
-                <View>
-                    <Image style={{height:100,width:100}}
-                           source={require('../../../imgs/hot-caramel-macchiato-20151022185811.jpg')}/>
-                </View>
-                <View style={{flex:1,marginLeft:15,paddingTop:10,marginRight:15}}>
-                    <Text style={{fontSize:16,color:"#666"}}>{"Chocolate Muffin"}</Text>
-                    <Text
-                        style={{fontSize:12,color:"#919191"}}>{"A rich chocolate muffin with a creamy caramel center.  Muffin"}</Text>
-                </View>
-            </TouchableOpacity>
-        );
+        return <ChannelRow row={row} clickTitle={this.clickTitle}/>;
+    }
+
+    @autobind
+    onEndReached() {
+        console.log('onEndReached');
+        this.fetchMoreChannels();
+    }
+
+    fetchMoreChannels() {
+        const {channelStore} = this.props;
+        if (!channelStore.isFetching)
+            channelStore.fetchChannelsFromServer();
     }
 
     render() {
         // console.log(JSON.parse(JSON.stringify(process.env)).NODE_ENV)
-        const store = this.props.store;
+        const {channelStore} = this.props;
+
         return <View style={styles.container}>
             <Swiper style={styles.wrapper} height={200}>
                 <View style={styles.slide1}>
@@ -53,12 +60,39 @@ export default class Home extends Component {
 
             <View style={{flex:1,paddingBottom:48}}>
                 <ListView
-                    dataSource={this.state.dataSource}
+                    dataSource={channelStore.dataSource}
                     renderRow={this.renderRow}
+                    enableEmptySections={true}
+                    onEndReached={this.onEndReached}
+                    onEndReachedThreshold={150}
                 />
             </View>
 
         </View>;
+    }
+}
+
+@observer
+class ChannelRow extends Component {
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
+        const {row} = this.props;
+        return (
+            <TouchableOpacity style={styles.rowStyles} onPress={this.props.clickTitle.bind(this,row)}>
+                <View>
+                    <Image style={{height:100,width:100}}
+                           source={require('../../../imgs/hot-caramel-macchiato-20151022185811.jpg')}/>
+                </View>
+                <View style={{flex:1,marginLeft:15,paddingTop:10,marginRight:15}}>
+                    <Text style={{fontSize:16,color:"#666"}}>{row.title}</Text>
+                    <Text
+                        style={{fontSize:12,color:"#919191"}}>{row.subtitle}</Text>
+                </View>
+            </TouchableOpacity>
+        )
     }
 }
 
