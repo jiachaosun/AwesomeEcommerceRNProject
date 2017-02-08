@@ -1,13 +1,11 @@
 import React, {Component} from "react";
 import {AppRegistry, StyleSheet, Text, View} from "react-native";
-import {Router, Scene, Modal} from "react-native-router-flux";
+import {Router, Scene, Modal, Actions} from "react-native-router-flux";
 import {observer} from "mobx-react/native";
 import {TabIcon, Error} from "./components";
-import {Home, ChannelDetail, Categories, OrderList} from "./pages";
+import {Home, ChannelDetail, Categories, OrderList, ProductList} from "./pages";
 import {store} from "./store";
-
-// let channelStore = new ChannelStore(TransportLayer);
-// let categoryStore = new CategoryStore(TransportLayer);
+import autobind from "autobind-decorator";
 
 @observer
 export default class Setup extends Component {
@@ -32,11 +30,19 @@ export default class Setup extends Component {
                         </Scene>
 
                         <Scene key="ChannelDetail" component={ChannelDetail} title="资讯详情"/>
+                        <Scene key="ProductList" component={ProductList} title="商品详情" onBack={this.reset}/>
                     </Scene>
                     <Scene key="error" component={Error}/>
                 </Scene>
             </Router>
         )
+    }
+
+    @autobind
+    reset() {
+        const {productStore} = store;
+        productStore.reset()
+        Actions.pop()
     }
 }
 

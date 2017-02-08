@@ -3,7 +3,6 @@ import {View, Text, StyleSheet, ListView, Image, TouchableOpacity, Dimensions} f
 import {observer} from "mobx-react/native";
 import autobind from "autobind-decorator";
 import {Actions} from "react-native-router-flux";
-const {height, width} = Dimensions.get('window');
 
 @observer
 export default class Categories extends Component {
@@ -13,20 +12,25 @@ export default class Categories extends Component {
     }
 
     componentDidMount() {
-        this.fetchMoreChannels()
+        this.fetchMoreCategories()
     }
 
-    fetchMoreChannels() {
+    fetchMoreCategories() {
         const {store} = this.props;
         const {categoryStore} = store;
         if (!categoryStore.isFetching)
-            categoryStore.fetchcategoriesFromServer();
+            categoryStore.fetchCategoriesFromServer();
+    }
+
+    @autobind
+    onClickRow(row) {
+        Actions.ProductList({cid: row.id});
     }
 
     @autobind
     renderRow(row) {
         return (
-            <TouchableOpacity style={styles.row} onPress={Actions.ChannelDetail}>
+            <TouchableOpacity style={styles.row} onPress={this.onClickRow.bind(this,row)}>
                 <View>
                     <Image style={{width:171,height:147}} source={require('../../../imgs/category-1.png')}/>
                 </View>
@@ -35,6 +39,12 @@ export default class Categories extends Component {
                 </View>
             </TouchableOpacity>
         );
+    }
+
+    @autobind
+    onEndReached() {
+        console.log('onEndReached');
+        this.fetchMoreCategories();
     }
 
     render() {
@@ -49,6 +59,7 @@ export default class Categories extends Component {
                 pageSize={2}
                 style={{paddingTop:20}}
                 enableEmptySections={true}
+                onEndReached={this.onEndReached}
             />
 
         </View>;
