@@ -4,16 +4,16 @@ import {Router, Scene, Modal} from "react-native-router-flux";
 import {observer} from "mobx-react/native";
 import {TabIcon, Error} from "./components";
 import {Home, ChannelDetail, Categories, OrderList} from "./pages";
-import ChannelStore from "./store/ChannelStore";
-import {TransportLayer} from "./service";
+import {store} from "./store";
 
-let channelStore = new ChannelStore(TransportLayer);
+// let channelStore = new ChannelStore(TransportLayer);
+// let categoryStore = new CategoryStore(TransportLayer);
 
 @observer
 export default class Setup extends Component {
     render() {
         return (
-            <Router channelStore={channelStore}>
+            <Router store={store}>
                 <Scene key="modal" component={Modal}>
                     <Scene key="root">
                         <Scene key="tabbar"

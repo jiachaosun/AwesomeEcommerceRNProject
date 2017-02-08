@@ -18,7 +18,7 @@ export default class Home extends Component {
 
     @autobind
     clickTitle(row) {
-        const {channelStore} = this.props;
+        // const {store} = this.props;
         // row.title = 222
         Actions.ChannelDetail()
     }
@@ -35,14 +35,16 @@ export default class Home extends Component {
     }
 
     fetchMoreChannels() {
-        const {channelStore} = this.props;
+        const {store} = this.props;
+        const {channelStore} = store;
         if (!channelStore.isFetching)
             channelStore.fetchChannelsFromServer();
     }
 
     render() {
         // console.log(JSON.parse(JSON.stringify(process.env)).NODE_ENV)
-        const {channelStore} = this.props;
+        const {store} = this.props;
+        const {channelStore} = store;
 
         return <View style={styles.container}>
             <Swiper style={styles.wrapper} height={200}>

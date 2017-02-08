@@ -1,32 +1,32 @@
 import {action, reaction, observable, observe, computed, autorun} from "mobx";
 import autobind from "autobind-decorator";
 import {ListView} from "react-native";
-import {ChannelModel} from "../models/ChannelModel";
+import {CategoryModel} from "../models/CategoryModel";
 
 @autobind
-export default class ChannelStore {
+export default class CategoryStore {
 
-    @observable channels = [];
+    @observable categories = [];
     transportLayer;
     ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     page = 0;
     isFetching = false;
 
     @computed get dataSource() {
-        return this.ds.cloneWithRows(this.channels.slice());
+        return this.ds.cloneWithRows(this.categories.slice());
     }
 
     constructor(transportLayer) {
         this.transportLayer = transportLayer;
     }
 
-    fetchChannelsFromServer() {
+    fetchcategoriesFromServer() {
         this.isFetching = true;
-        this.transportLayer.fetchChannels(this.page)
+        this.transportLayer.fetchCategories(this.page)
             .then(json => {
-                json.map(channel => {
-                    this.channels.push(
-                        new ChannelModel(this, channel)
+                json.map(category => {
+                    this.categories.push(
+                        new CategoryModel(this, category)
                     );
                     this.page++;
                     this.isFetching = false;

@@ -10,14 +10,17 @@ export default class Categories extends Component {
 
     constructor(props) {
         super(props);
-        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        this.state = {
-            dataSource: ds.cloneWithRows([
-                'John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin',
-                'John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin',
-                'John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin',
-            ])
-        };
+    }
+
+    componentDidMount() {
+        this.fetchMoreChannels()
+    }
+
+    fetchMoreChannels() {
+        const {store} = this.props;
+        const {categoryStore} = store;
+        if (!categoryStore.isFetching)
+            categoryStore.fetchcategoriesFromServer();
     }
 
     @autobind
@@ -28,22 +31,24 @@ export default class Categories extends Component {
                     <Image style={{width:171,height:147}} source={require('../../../imgs/category-1.png')}/>
                 </View>
                 <View>
-                    <Text>{row}</Text>
+                    <Text>{`${row.title} ${row.id}`}</Text>
                 </View>
             </TouchableOpacity>
         );
     }
 
     render() {
-        const store = this.props.store;
+        const {store} = this.props;
+        const {categoryStore} = store;
         return <View style={styles.container}>
 
             <ListView
-                dataSource={this.state.dataSource}
+                dataSource={categoryStore.dataSource}
                 renderRow={this.renderRow}
                 contentContainerStyle={styles.list}
                 pageSize={2}
                 style={{paddingTop:20}}
+                enableEmptySections={true}
             />
 
         </View>;
